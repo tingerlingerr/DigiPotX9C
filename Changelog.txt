@@ -1,2 +1,7 @@
 ## [0.0.1] - 12 May 2025
-- first version, only .cpp and .h
+- First version, only .cpp and .h
+
+## [0.0.2] - 12 May 2025
+- Corrected LICENSE details
+- Added wiring diagram that I used. Diagram has some useful info mentioned.
+
