@@ -32,8 +32,8 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 --
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
-- Minimally written library balancing speed of operation, and reliability & ease of use.
-:grey_exclamation:_FUTURE WORK_: This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
+- Minimally written library balancing speed of operation, and reliability & ease of use.</br>
+:grey_exclamation:_FUTURE WORK_ : This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
 ---
 
 ## :clipboard: **Folder Structure**
