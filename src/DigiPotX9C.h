@@ -42,7 +42,7 @@
 #define X9C104_RESISTANCE    100000  // 100 kΩ
 
 
-#define DIGIPOTX9C_LIB_VERSION     (F("0.0.2"))    // F stores library version in flash memory (PROGMEM) instead of RAM
+#define DIGIPOTX9C_LIB_VERSION     (F("0.0.3"))    // F stores library version in flash memory (PROGMEM) instead of RAM
 
 class X9C_BASE {
     public:

@@ -14,11 +14,11 @@ This repository aims to accurately replicate timing characteristics and resistan
 https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 
 **Advantages**
-    - Dirt cheap (like most chinese products), and fairly reliable. 
-    - Unlike mechanical potentiometers, no physical wear; offers repeatable digital control
-    - Retains last wiper position after power loss (for up to 100 years).
-    - Compact size; max 16mW (10mW for X9C102) power consumption.
-    - Suitable for applications requiring auto-calibration of resistive-based sensing / actuating devices, removing undesired manual intervention.
+- Dirt cheap (like most chinese products), and fairly reliable. 
+- Unlike mechanical potentiometers, no physical wear; offers repeatable digital control
+- Retains last wiper position after power loss (for up to 100 years).
+- Compact size; max 16mW (10mW for X9C102) power consumption.
+- Suitable for applications requiring auto-calibration of resistive-based sensing / actuating devices, removing undesired manual intervention.
 
 **Disadvantages**
     - ±20% high tolerance a detrimental factor in critical systems; can be mitigated via software to some extent.
@@ -42,9 +42,14 @@ _FUTURE WORK_ This library will also house an easy-to-use bluetooth and wifi con
 DigiPotX9C/
 ├── docs/
 ├── examples/
-└── src/
-     ├── 
-
+├── src/
+├── wiring/
+├ Changelog
+├ LICENSE
+├ Readme
+├ datasheet
+├ keywords
+└ library.properties
 ```
 
 ## 🧞 Features
