@@ -1,4 +1,4 @@
-#include "DigiPotX9C_Pro.h"
+#include "DigiPotX9C.h"
 
 bool X9C_BASE::_validatePins(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
     #ifdef ESP32
@@ -150,14 +150,14 @@ float X9C_BASE::positionToResistance(uint8_t position) {
 void X9C_BASE::_store() {
     /* 
         INC - HIGH
-        CS - LOW TO HIGH
+        CS - LOW TO HIGH (with 20ms delay)
     */
     
     digitalWrite(_cs, LOW);
     digitalWrite(_cmd, HIGH);
     delayMicroseconds(5);
     digitalWrite(_cs, HIGH);
-    delay(20);
+    delayMicroseconds(_T_CPH_S);
     delayMicroseconds(5); // just to be safe
 
 }
@@ -180,9 +180,10 @@ void X9C_BASE::_move(uint8_t steps, bool _up_down_flag) {
         wiperPos = constrain(wiperPos, 0, 99);
     }
     digitalWrite(_cmd, LOW);
-    delayMicroseconds(_T_IC+1);   // t_IC
+    delayMicroseconds(_T_IL+1);   // t_IC
     digitalWrite(_cs, HIGH);    
-    delayMicroseconds(_T_CPH+1); // t_CPH
+    delayMicroseconds(_T_CPH_NS); // t_CPH_NS
     
     digitalWrite(_cmd, HIGH);
+    delayMicroseconds(_T_IH+1);   // t_IH
 }

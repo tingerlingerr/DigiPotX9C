@@ -1,6 +1,6 @@
 #pragma once
 /*  Library Details:
-    FILE - DigiPotX9C_Pro.h
+    FILE - DigiPotX9C.h
     AUTHOR - tingerlinger
     VERSION - 1.0.0
     URL - 
@@ -8,8 +8,8 @@
     ORIGINAL DEVICE DATASHEET - https://www.renesas.com/en/document/dst/x9c102-x9c103-x9c104-x9c503-datasheet?r=502671
 */
 
-#ifndef DIGIPOTX9C_PRO_H
-#define DIGIPOTX9C_PRO_H
+#ifndef DIGIPOTX9C_H
+#define DIGIPOTX9C_H
 
 #define SENSOR_LIB_H
 
@@ -22,12 +22,13 @@
 3. Wiper has 40ohm line resistance (typical)
 4. Non-volatile recall happens automatically on power
 5. For storing wiperPos, requires 20ms minimum
-6. Minimum Timing requirements:
+6. MINIMUM Timing requirements:
    - t_CS: CS to INC setup time = 1μs
    - t_IH: INC high time = 1μs
    - t_IL: INC low time = 1μs
    - t_DI: U/D to INC setup time = 3μs
-   - t_CPH: CS high time for store = 20ms
+   - t_CPH_S: CS high time for store = 20ms
+   - t_CPH_NS: CS high time for recall = 100ns
 */
 
 // Device type constants
@@ -41,7 +42,7 @@
 #define X9C104_RESISTANCE    100000  // 100 kΩ
 
 
-#define DIGIPOTX9C_PRO_LIB_VERSION     (F("0.0.2"))    // F stores library version in flash memory (PROGMEM) instead of RAM
+#define DIGIPOTX9C_LIB_VERSION     (F("0.0.2"))    // F stores library version in flash memory (PROGMEM) instead of RAM
 
 class X9C_BASE {
     public:
@@ -87,7 +88,8 @@ class X9C_BASE {
         const uint8_t _T_IH = 1;    // INC high time
         const uint8_t _T_IL = 1;    // INC low time
         const uint8_t _T_DI = 3;    // U/D to INC setup time
-        const uint16_t _T_CPH = 20000; // CS high time for store
+        const uint16_t _T_CPH_S = 20000; // CS high time for store
+        const uint16_t _T_CPH_NS = 100; // CS high time for no-store, return to standby 
         
         bool _initialise(uint8_t udPin, uint8_t incPin, uint8_t csPin); 
         bool _validatePins(uint8_t udPin, uint8_t incPin, uint8_t csPin);
