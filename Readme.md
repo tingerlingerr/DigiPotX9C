@@ -21,15 +21,16 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 - Suitable for applications requiring auto-calibration of resistive-based sensing / actuating devices, removing undesired manual intervention.
 
 **Disadvantages**
-    - ±20% high tolerance a detrimental factor in critical systems; can be mitigated via software to some extent.
-    - Limited to ~3mA current; ±1 LSB wiper position uncertainty. 
-    - Some have complained that full rresistance often reached in 30–50 steps, not 100.
+- ±20% high tolerance a detrimental factor in critical systems; can be mitigated via software to some extent.
+- Limited to ~3mA current; ±1 LSB wiper position uncertainty. 
+- Some have complained that full rresistance often reached in 30–50 steps, not 100.
 
 **Limitations**
-    - Always 100 steps resolution, irrespective of module; 100kΩ module resolution only 1kΩ, not be very precise.
-    - Datasheet mentions ONLY minimum timing specs - what if real dalay is more? How much more? We may never know!!
+- Always 100 steps resolution, irrespective of module; 100kΩ module resolution only 1kΩ, not be very precise.
+- Datasheet mentions ONLY minimum timing specs - what if real dalay is more? How much more? We may never know!!
 
 **Reason for building library**
+--
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
 - Minimally written library balancing speed of operation, and reliability & ease of use.
