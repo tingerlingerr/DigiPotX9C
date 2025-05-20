@@ -1,16 +1,17 @@
-# Digital Potentiometer X9C MATLAB-Simscape Electrical Simulation Toolkit
+# X9C Series Digital Potentiometer - Library
 ![C++](https://img.shields.io/badge/C++-red)
 
 ![Arduino](https://img.shields.io/badge/Arduino-teal)
+--
 
 ## **About**
-**Description**
+**Description**</br>
 The X9C10C is a digitally controlled potentiometer (digipot) from the X9C series, providing 1 / 10 / 50 / 100 kΩ resistance with 100 tap points (0-99) and ±20% resistance tolerance, that can be adjusted via digital signals. 
 Operated between -5 to 5V logic levels, it features a non-volatile memory with (typical) 1e5 write cycles to store wiper positions. The device uses a 3-wire interface (CS, U/D', INC) for increment/decrement control, with 1µs typical step response time, making it ideal for applications requiring programmable resistance like gain adjustment, calibration, or volume control. 
 
 This repository aims to accurately replicate timing characteristics and resistance taper behaviour of this series of digital potentiometers.
 
-**Pinout diagram**
+**Pinout diagram**</br>
 https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 
 **Advantages**
@@ -34,7 +35,7 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
 - Minimally written library balancing speed of operation, and reliability & ease of use.
-_FUTURE WORK_ This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
+- :grey_exclamation:_FUTURE WORK_ This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
 ---
 
 ## :clipboard: **Folder Structure**
