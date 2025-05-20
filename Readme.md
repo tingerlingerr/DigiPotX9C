@@ -1,8 +1,6 @@
 # X9C Series Digital Potentiometer - Library
-![C++](https://img.shields.io/badge/C++-red)
-
-![Arduino](https://img.shields.io/badge/Arduino-teal)
---
+![C++](https://img.shields.io/badge/C++-red) ![Arduino](https://img.shields.io/badge/Arduino-teal)
+---
 
 ## **About**
 **Description**</br>
@@ -35,7 +33,7 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
 - Minimally written library balancing speed of operation, and reliability & ease of use.
-- :grey_exclamation:_FUTURE WORK_ This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
+:grey_exclamation:_FUTURE WORK_: This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
 ---
 
 ## :clipboard: **Folder Structure**
@@ -53,16 +51,10 @@ DigiPotX9C/
 ├ keywords
 └ library.properties
 ```
+---
+## 🧞 **Features**
 
-## 🧞 Features
-
-Currently supports two Simscape simulation models:
-
-| Model                     | Description                                      |  Usage                                            |  Note
-| :------------------------ | :----------------------------------------------- |  :----------------------------------------------- |  :----------------------------------------------- |
-| `Basic`                   | User may run the Simscape model as they want. Real-time delay as per datasheet is provided.          | Open the Simscape model, update WIPER_CMD value and Run. If satisfied, you may directly copy it to any larger model you may want to control via a Digital Pot            |  Although mentioned 103s, changing the total resistance in the block will simulate any Digipot  |
-| `Intermediate`            | For wider control and programming, this model was developed for Simscape-MATLAB co-simulation environment. However, feel free to use it for Simscape-only usage.  |  This can be run both from the example matlab script, or directly from Simscape (logic similar to Basic model)  |:exclamation::exclamation:Incremental control and Storage functions have been written but their implementation is not proper. :grey_exclamation:Requesting help. Need to be improved currently.
-
+To be updated
 ---
 ## Credit
 
@@ -72,4 +64,4 @@ Currently supports two Simscape simulation models:
 2. Inspirations:
     - https://github.com/RobTillaart/X9C10X
     - https://github.com/GitMoDu/FastX9CXXX
-
+---
