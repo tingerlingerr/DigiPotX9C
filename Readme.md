@@ -32,6 +32,7 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 - Minimally written library balancing speed of operation, and reliability & ease of use.</br>
 
 :grey_exclamation:_FUTURE WORK_ : This library will also house an easy-to-use bluetooth and wifi connectivity option. It will also be connected to ROS1 using rosserial, and ROS2 using microros, over USB or WiFi.
+
 ---
 
 ## :clipboard: **Folder Structure**
