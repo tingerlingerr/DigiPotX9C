@@ -1,5 +1,4 @@
-# X9C Series Digital Potentiometer - Library ![C++](https://img.shields.io/badge/C++-red) ![Arduino](https://img.shields.io/badge/Arduino-teal)
----
+# X9C Series Digital Potentiometer - Arduino Library ![C++](https://img.shields.io/badge/C++-red) ![Arduino](https://img.shields.io/badge/Arduino-teal)
 
 ## **About**
 **Description**</br>
@@ -8,7 +7,7 @@ The X9C10C is a digitally controlled potentiometer (digipot) from the X9C series
 This repository aims to accurately replicate timing characteristics and resistance taper behaviour of this series of digital potentiometers.
 
 **Pinout diagram**</br>
-https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
+https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 
 **Advantages**
 - Dirt cheap (like most chinese products), and fairly reliable. 
@@ -23,15 +22,16 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/circuit.png
 - Some have complained that full rresistance often reached in 30–50 steps, not 100.
 
 **Limitations**
-- Always 100 steps resolution, irrespective of module; 100kΩ module resolution only 1kΩ, not be very precise.
-- Datasheet mentions ONLY minimum timing specs - what if real dalay is more? How much more? We may never know!!
+- Always 100 steps resolution, irrespective of module; resolution of 100kΩ module only 1kΩ, not be very precise.
+- Datasheet mentions ONLY minimum timing specs - what if real dalay is more? How much more? This is cheap electronics. We may never know!!
 
 **Reason for building library**
 --
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
 - Minimally written library balancing speed of operation, and reliability & ease of use.</br>
-:grey_exclamation:_FUTURE WORK_ : This library will also house an easy-to-use bluetooth and wifi connectivity option. For wifi, it will also be connected to ROS1 and ROS2.
+
+:grey_exclamation:_FUTURE WORK_ : This library will also house an easy-to-use bluetooth and wifi connectivity option. It will also be connected to ROS1 using rosserial, and ROS2 using microros, over USB or WiFi.
 ---
 
 ## :clipboard: **Folder Structure**

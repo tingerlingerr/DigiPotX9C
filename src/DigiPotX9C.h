@@ -50,6 +50,7 @@ class X9C_BASE {
         uint32_t maxResistance; // user measured total resistance
         float resistanceStep;
         float wiperResistance = 40.0;
+        uint8_t type; // 102, 103, 104
 
         
         void init(uint8_t udPin, uint8_t incPin, uint8_t csPin);    // udPin and incPin can be same for multiple POTs, csPin needs to be unique - however then, only one POT can be controlled at a time
@@ -81,7 +82,7 @@ class X9C_BASE {
         uint8_t _cmd;  // inc GPIO pin no., command to increment / decrement
         uint8_t _cs;   // cs GPIO pin no.
         bool _resetAtStart = true; // default is reset at start
-        uint8_t _type; // 102, 103, 104
+        
         
         // Timing constants (in microseconds)
         const uint8_t _T_IC = 1;    // CS to INC setup time

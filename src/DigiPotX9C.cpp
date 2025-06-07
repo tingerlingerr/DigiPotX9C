@@ -124,7 +124,7 @@ void X9C_BASE::setResistance(float R_set) {
     if (R_set > maxResistance) R_set = maxResistance;
     
     Serial.println("type:  ");
-    Serial.println(_type);
+    Serial.println(type);
     // Calculate required position
     uint8_t pos = resistanceToPosition(R_set);
      
@@ -139,7 +139,7 @@ void X9C_BASE::setResistance(float R_set) {
 }
 
 uint8_t X9C_BASE::resistanceToPosition(float resistance) {
-    return floor((pow(10, (_type-100))/maxResistance) * ((resistance-wiperResistance) / 10.0));
+    return floor((pow(10, (type-100))/maxResistance) * ((resistance-wiperResistance) / 10.0));
 }
 
 float X9C_BASE::positionToResistance(uint8_t position) {
@@ -182,7 +182,7 @@ void X9C_BASE::_move(uint8_t steps, bool _up_down_flag) {
     digitalWrite(_cmd, LOW);
     delayMicroseconds(_T_IL+1);   // t_IC
     digitalWrite(_cs, HIGH);    
-    delayMicroseconds(_T_CPH_NS); // t_CPH_NS
+    delayMicroseconds(_T_CPH_NS+1); // t_CPH_NS
     
     digitalWrite(_cmd, HIGH);
     delayMicroseconds(_T_IH+1);   // t_IH

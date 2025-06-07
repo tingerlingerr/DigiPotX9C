@@ -1,2 +1,16 @@
 # Constants (LITERAL1)
 DIGIPOTX9C_PRO_LIB_VERSION	LITERAL1
+
+# Digipot types
+X9C102 KEYWORD1
+X9C103 KEYWORD1
+X9C104 KEYWORD1
+
+# Methods and Functions
+init KEYWORD2
+resetAtStart KEYWORD2
+getApproxResistance KEYWORD2
+setResistance KEYWORD2
+
+resistanceToPosition KEYWORD2
+positionToResistance KEYWORD2
