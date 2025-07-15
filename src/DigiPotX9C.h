@@ -16,6 +16,12 @@
 #include "Arduino.h"
 #include <EEPROM.h>
 
+#ifdef ESP32
+    #include <freertos/FreeRTOS.h>
+    #include <freertos/task.h>
+    #include <freertos/semphr.h>
+#endif
+
 /* Relevant notes from datasheet: 
 1. 99 wiper positions
 2. 1 MI (Minimum Increment) = R_tot / 99
@@ -48,8 +54,9 @@ class X9C_BASE {
     public:
         uint8_t wiperPos;
         uint32_t maxResistance; // user measured total resistance
-        float resistanceStep;
+        float resistanceStep = 0.0;
         float wiperResistance = 40.0;
+        float resistanceFB = 0.0;
         uint8_t type; // 102, 103, 104
 
         
@@ -60,7 +67,8 @@ class X9C_BASE {
         uint8_t getPosition();         // Get current wiper position
         void setPosition(uint8_t pos_cmd); // Set position directly (0-99)
         float getApproxResistance();  // gets current resistance in ohms
-        void setResistance(float R_set);    // accepts in ohms
+        uint16_t getResistanceFeedback(uint32_t adc_read, int R_ref = 100000, int avg_window_size = 0, float Vcc = 3.3, float resolution = 4095.0);  // gets Feedback from a voltage divider network, default values mentioned
+        void setResistance(float R_set, bool save = false);    // accepts in ohms
         
         
         // Utility functions
@@ -68,11 +76,12 @@ class X9C_BASE {
         float positionToResistance(uint8_t position);
     
     protected:
-        X9C_BASE(uint32_t measuredOhm, uint8_t type = 0) {
+        X9C_BASE(uint32_t measuredOhm, uint8_t type_ = 0) {
             maxResistance = measuredOhm - wiperResistance;
             wiperPos = 0;
-            resistanceStep = maxResistance / 99.0;
-            _type = type;
+            resistanceStep = maxResistance / 99.0f;
+            resistanceFB = 0.0;
+            type = type_;
         }
 
     private:
@@ -82,7 +91,9 @@ class X9C_BASE {
         uint8_t _cmd;  // inc GPIO pin no., command to increment / decrement
         uint8_t _cs;   // cs GPIO pin no.
         bool _resetAtStart = true; // default is reset at start
-        
+
+        int _R_ref = 100000;
+        float _Vcc = 5.0;        
         
         // Timing constants (in microseconds)
         const uint8_t _T_IC = 1;    // CS to INC setup time

@@ -2,6 +2,8 @@
 
 bool X9C_BASE::_validatePins(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
     #ifdef ESP32
+        analogReadResolution(12);
+        analogSetAttenuation(ADC_11db);
         if (!GPIO_IS_VALID_OUTPUT_GPIO(udPin)) {
             Serial.println("Invalid U/D pin! Use output-capable GPIO");
             return false;
@@ -30,8 +32,8 @@ void X9C_BASE::init(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
         while(1)
             delay(1000);
     }
-    else
-        Serial.println("Digital potentiometer initialised");
+    else 
+        Serial.println("Digital potentiometer initialised\n");
 }
 
 bool X9C_BASE::_initialise(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
@@ -76,6 +78,35 @@ float X9C_BASE::getApproxResistance() {
     return (resistanceStep * wiperPos) + wiperResistance;
 }
 
+uint16_t X9C_BASE::getResistanceFeedback(uint32_t adc_read, int R_ref, int avg_window_size, float Vcc, float resolution) {
+
+    _R_ref = R_ref;
+    _Vcc = Vcc;
+    float Vout, R_pot;
+    float Vout_i = 0.0f;
+
+    Vout = Vcc * (adc_read / resolution);
+
+    if(avg_window_size>0) {
+        Vout = 0.0f;
+
+        for (float i = 0.0; i<avg_window_size; i++) {
+
+        Vout_i = Vcc * (adc_read / resolution);
+        if(Vout_i < 0.001) 
+            return 0;
+        Vout = Vout + Vout_i;
+      
+        } // moving avg loop
+        Vout = Vout / avg_window_size;
+    }
+
+    R_pot = ((Vcc / Vout) - 1) * R_ref;
+    // Vout = Vcc * rref/(rref+rpot); rpot = ((Vcc / Vout) - 1) * R_ref;
+    return static_cast<uint16_t>(R_pot);
+     
+}
+
 void X9C_BASE::incr(uint8_t steps) {
     if (steps <= 0) return; // blank input
     
@@ -117,13 +148,13 @@ void X9C_BASE::setPosition(uint8_t pos_cmd) {
 }
 
 
-void X9C_BASE::setResistance(float R_set) {
+void X9C_BASE::setResistance(float R_set, bool save) {
 
     // Limit to valid range
     if (R_set < 0) R_set = 0;
     if (R_set > maxResistance) R_set = maxResistance;
     
-    Serial.println("type:  ");
+    Serial.print("POT type: ");
     Serial.println(type);
     // Calculate required position
     uint8_t pos = resistanceToPosition(R_set);
@@ -135,11 +166,12 @@ void X9C_BASE::setResistance(float R_set) {
     setPosition(pos);
     
     // Store new position in non-volatile memory
-    _store();
+    if(save)
+        _store();
 }
 
 uint8_t X9C_BASE::resistanceToPosition(float resistance) {
-    return floor((pow(10, (type-100))/maxResistance) * ((resistance-wiperResistance) / 10.0));
+    return floor((pow(10, (type-101))/maxResistance) * ((resistance-wiperResistance) / 10.0));
 }
 
 float X9C_BASE::positionToResistance(uint8_t position) {
@@ -178,6 +210,8 @@ void X9C_BASE::_move(uint8_t steps, bool _up_down_flag) {
         
         wiperPos = _up_down_flag ? wiperPos + 1 : wiperPos - 1;
         wiperPos = constrain(wiperPos, 0, 99);
+
+
     }
     digitalWrite(_cmd, LOW);
     delayMicroseconds(_T_IL+1);   // t_IC

@@ -10,13 +10,14 @@ This repository aims to accurately replicate timing characteristics and resistan
 https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 
 **Advantages**
-- Dirt cheap (like most chinese products), and fairly reliable. 
+- Dirt cheap (like most chinese products) 
 - Unlike mechanical potentiometers, no physical wear; offers repeatable digital control
 - Retains last wiper position after power loss (for up to 100 years).
 - Compact size; max 16mW (10mW for X9C102) power consumption.
 - Suitable for applications requiring auto-calibration of resistive-based sensing / actuating devices, removing undesired manual intervention.
 
 **Disadvantages**
+- Modules have shown to be unreliable at times
 - ±20% high tolerance a detrimental factor in critical systems; can be mitigated via software to some extent.
 - Limited to ~3mA current; ±1 LSB wiper position uncertainty. 
 - Some have complained that full rresistance often reached in 30–50 steps, not 100.
@@ -29,9 +30,8 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 --
 - Verifies pin connection for ESP32 (very imp).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
-- Minimally written library balancing speed of operation, and reliability & ease of use.</br>
-
-:grey_exclamation:_FUTURE WORK_ : This library will also house an easy-to-use bluetooth and wifi connectivity option. It will also be connected to ROS1 using rosserial, and ROS2 using microros, over USB or WiFi.
+- Minimally written library balancing speed of operation, and reliability & ease of use.
+- (Frankly) Self-learning </br>
 
 ---
 
