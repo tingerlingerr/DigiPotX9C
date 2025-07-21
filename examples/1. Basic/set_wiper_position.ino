@@ -1,3 +1,16 @@
+/*
+  Remeber to ground the VW. Most ckt diagrams online are incorrect.
+  
+    VH
+    VW------------
+            |    |
+            RΩ   |
+            |    |
+    VL-------  __|__  
+                ---   GND
+                  -
+*/
+
 #include "DigiPotX9C.h"
 
 #define udpin 32

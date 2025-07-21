@@ -8,3 +8,8 @@
 ## [0.0.3] - 21 May 2025
 - Addressed issues 2 and 3. Corrected some timing values, and provided a proper readme.
 
+## [1.0.0] - 16 Jul 2025
+- First stable release. Corrected multiple issues
+
+## [1.0.1] - 21 Jul 2025
+- Minor additions for user help. No functionality added.
