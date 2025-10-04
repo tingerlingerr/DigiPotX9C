@@ -46,7 +46,7 @@ void loop() {
     pot.incr(wave_amplitude);
 
     Serial.print("\nApprox resistance after increment: ");
-    Serial.printf("%.f ohms\n", pot.getApproxResistance());
+    Serial.printf("%d ohms\n", pot.getApproxResistance());
 
     delay(5000);
 
@@ -54,7 +54,7 @@ void loop() {
     pot.decr(wave_amplitude);
 
     Serial.print("\nApprox resistance after decrement: ");
-    Serial.printf("%.f ohms\n", pot.getApproxResistance());
+    Serial.printf("%d ohms\n", pot.getApproxResistance());
     
     Serial.println();
     delay(5000);

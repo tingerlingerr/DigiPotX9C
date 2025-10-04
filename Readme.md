@@ -1,12 +1,15 @@
 # X9C Series Digital Potentiometer - Arduino Library ![C++](https://img.shields.io/badge/C++-red) ![Arduino](https://img.shields.io/badge/Arduino-teal)
 
 ## **About**
+Main use case: Variable Reference Resistor for Adjustable Voltage Divider Networks
 **Description**</br>
 The X9C10C is a digitally controlled potentiometer (digipot) from the X9C series, providing 1 / 10 / 50 / 100 kΩ resistance with 100 tap points (0-99) and ±20% resistance tolerance, that can be adjusted via digital signals. </br>Operated between -5 to 5V logic levels, it features a non-volatile memory with (typical) 1e5 write cycles to store wiper positions. The device uses a 3-wire interface (CS, U/D', INC) for increment/decrement control, with 1µs typical step response time, making it ideal for applications requiring programmable resistance like gain adjustment, calibration, or volume control. 
 
 This repository aims to accurately replicate timing characteristics and resistance taper behaviour of this series of digital potentiometers.
 
 **Pinout diagram**</br>
+*IMPORTANT:* All digital pots in internet examples use the same device to divide the voltage.
+But I use external resistive devices (strain gauges, soft resistive sensors, etc.) in my research work, and require a variable reference resistor for adjustable voltage divider networks. Hence, this ckt diagram helps in using it as a variable reference resistor.
 https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 
 **Advantages**
@@ -28,7 +31,8 @@ https://github.com/tingerlingerr/DigiPotX9C/blob/main/wiring/
 
 **Reason for building library**
 --
-- Verifies pin connection for ESP32 (very imp).
+- Refer IMPORTANT note in Pinout diagram
+- Verifies whether correct GPIO pin is connected (for ESP32 only).
 - Considers the fact a user may want to increase wiper position by more than 1 position a time.
 - Minimally written library balancing speed of operation, and reliability & ease of use.
 - (Frankly) Self-learning </br>
@@ -51,9 +55,10 @@ DigiPotX9C/
 └ library.properties
 ```
 ---
-## 🧞 **Features**
+## To do
 
-To be updated
+Have a "getResistanceFeedback()" function that reads the actual resistance, instead of mathematical calculation based on wiper position.
+But need to test that on field.
 ---
 ## Credit
 

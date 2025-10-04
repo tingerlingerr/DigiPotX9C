@@ -2,9 +2,9 @@
 /*  Library Details:
     FILE - DigiPotX9C.h
     AUTHOR - tingerlinger
-    VERSION - 1.0.0
+    VERSION - 1.1.0
     URL - 
-    PURPOSE - Arduino library for X9C10x digital potentiometers (102, 103, 105)
+    PURPOSE - Arduino library for X9Cx0x digital potentiometers (102, 103, 503, 104)
     ORIGINAL DEVICE DATASHEET - https://www.renesas.com/en/document/dst/x9c102-x9c103-x9c104-x9c503-datasheet?r=502671
 */
 
@@ -14,13 +14,6 @@
 #define SENSOR_LIB_H
 
 #include "Arduino.h"
-#include <EEPROM.h>
-
-#ifdef ESP32
-    #include <freertos/FreeRTOS.h>
-    #include <freertos/task.h>
-    #include <freertos/semphr.h>
-#endif
 
 /* Relevant notes from datasheet: 
 1. 99 wiper positions
@@ -48,14 +41,14 @@
 #define X9C104_RESISTANCE    100000  // 100 kΩ
 
 
-#define DIGIPOTX9C_LIB_VERSION     (F("0.0.3"))    // F stores library version in flash memory (PROGMEM) instead of RAM
+#define DIGIPOTX9C_LIB_VERSION     (F("1.1.0"))    // F stores library version in flash memory (PROGMEM) instead of RAM
 
 class X9C_BASE {
     public:
         uint8_t wiperPos;
         uint32_t maxResistance; // user measured total resistance
-        float resistanceStep = 0.0;
-        float wiperResistance = 40.0;
+        uint8_t resistanceStep = 0;
+        uint8_t wiperResistance = 40;
         float resistanceFB = 0.0;
         uint8_t type; // 102, 103, 104
 
@@ -66,8 +59,8 @@ class X9C_BASE {
         void decr(uint8_t step = 1);    // default decrement is 1
         uint8_t getPosition();         // Get current wiper position
         void setPosition(uint8_t pos_cmd); // Set position directly (0-99)
-        float getApproxResistance();  // gets current resistance in ohms
-        uint16_t getResistanceFeedback(uint32_t adc_read, int R_ref = 100000, int avg_window_size = 0, float Vcc = 3.3, float resolution = 4095.0);  // gets Feedback from a voltage divider network, default values mentioned
+        uint32_t getApproxResistance();  // gets current resistance in ohms
+        uint16_t getResistanceFeedback(uint8_t read_pin, int R_ref = 100000, uint8_t avg_window_size = 0, float Vcc = 3.3, float resolution = 4095.0);  // gets Feedback from a voltage divider network, default values mentioned
         void setResistance(float R_set, bool save = false);    // accepts in ohms
         
         
@@ -85,7 +78,7 @@ class X9C_BASE {
         }
 
     private:
-        const uint8_t POT_ADDR = 0x10;   // EEPROM address
+        const uint8_t POT_ADDR = 0x10;   // Internal EEPROM address
 
         uint8_t _ud;   // u/d GPIO pin no.
         uint8_t _cmd;  // inc GPIO pin no., command to increment / decrement
@@ -110,7 +103,7 @@ class X9C_BASE {
         void _firstReset();
         
         
-}; // Base class for X9C10x digital potentiometers
+}; // Base class for X9Cx0x digital potentiometers
 
 // Device-specific classes
 class X9C102 : public X9C_BASE {

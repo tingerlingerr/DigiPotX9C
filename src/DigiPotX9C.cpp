@@ -25,9 +25,8 @@ void X9C_BASE::resetAtStart(bool reset) {
 }
 
 void X9C_BASE::init(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
-    
-    bool initialised = _initialise(udPin, incPin, csPin);    
-    if (!initialised) {
+        
+    if (!_initialise(udPin, incPin, csPin)) {
         Serial.println("Failed to initialise digital potentiometer");
         while(1)
             delay(1000);
@@ -59,10 +58,6 @@ bool X9C_BASE::_initialise(uint8_t udPin, uint8_t incPin, uint8_t csPin) {
 
         if (_resetAtStart)
             _firstReset();
-        else {
-            wiperPos = EEPROM.read(POT_ADDR);
-            wiperPos = constrain(wiperPos, 0, 99);
-        }
     }
     return true;
 }
@@ -71,37 +66,37 @@ uint8_t X9C_BASE::getPosition() {
     return wiperPos; 
 }
 
-float X9C_BASE::getApproxResistance() {
+uint32_t X9C_BASE::getApproxResistance() {
     // returns the approximate expected resistance (in ohms) within 5% of the actual resistance
-    if (wiperPos <= 0) return 40.0;
+    if (wiperPos <= 0) return 40;
 
-    return (resistanceStep * wiperPos) + wiperResistance;
+    return (uint32_t)((resistanceStep * wiperPos) + wiperResistance);
 }
 
-uint16_t X9C_BASE::getResistanceFeedback(uint32_t adc_read, int R_ref, int avg_window_size, float Vcc, float resolution) {
+uint16_t X9C_BASE::getResistanceFeedback(uint8_t read_pin, int R_ref, uint8_t avg_window_size, float Vcc, float resolution) {
 
     _R_ref = R_ref;
     _Vcc = Vcc;
     float Vout, R_pot;
     float Vout_i = 0.0f;
 
-    Vout = Vcc * (adc_read / resolution);
+    Vout = (Vcc * analogRead(read_pin)) / resolution;
 
     if(avg_window_size>0) {
         Vout = 0.0f;
 
-        for (float i = 0.0; i<avg_window_size; i++) {
+        for (uint8_t i = 0; i<avg_window_size; i++) {
 
-        Vout_i = Vcc * (adc_read / resolution);
+        Vout_i = Vcc * (analogRead(read_pin) / resolution);
         if(Vout_i < 0.001) 
-            return 0;
+            return 0.0;
         Vout = Vout + Vout_i;
       
         } // moving avg loop
         Vout = Vout / avg_window_size;
     }
 
-    R_pot = ((Vcc / Vout) - 1) * R_ref;
+    R_pot = ((Vcc / Vout) - 1.0) * R_ref;
     // Vout = Vcc * rref/(rref+rpot); rpot = ((Vcc / Vout) - 1) * R_ref;
     return static_cast<uint16_t>(R_pot);
      
@@ -171,13 +166,16 @@ void X9C_BASE::setResistance(float R_set, bool save) {
 }
 
 uint8_t X9C_BASE::resistanceToPosition(float resistance) {
-    return floor((pow(10, (type-101))/maxResistance) * ((resistance-wiperResistance) / 10.0));
+    return floor((pow(10, (type-100))/maxResistance) * ((resistance-wiperResistance) / 10.0));
 }
 
 float X9C_BASE::positionToResistance(uint8_t position) {
     if (position <= 0) return 40.0;
     return (maxResistance / 99.0) * position + wiperResistance; 
 }
+
+
+// ACTUAL INTERNAL WORKING FUNCTIONS
 
 void X9C_BASE::_store() {
     /* 
@@ -197,7 +195,7 @@ void X9C_BASE::_move(uint8_t steps, bool _up_down_flag) {
     if (steps <= 0) return;
 
     digitalWrite(_ud, _up_down_flag);  // up_down_flag = true, increment; else decrement
-    delayMicroseconds(_T_DI+1);  // t_DI
+    delayMicroseconds(_T_DI);  // t_DI
 
   
     digitalWrite(_cs, LOW);

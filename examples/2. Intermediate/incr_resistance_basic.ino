@@ -34,14 +34,14 @@ void setup() {
   
   delay(20);  // optional delay
 
-  Serial.printf("Initial resistance: %.f ohms\n", pot.getApproxResistance());
+  Serial.printf("Initial resistance: %d ohms\n", pot.getApproxResistance());
   
   Serial.printf("Attempting to increase resistance by %.f ohms", pow(10, (pot.type-101)));
   Serial.println("\nNote that the resistance will not increase above maximum");
   pot.incr();
 
   Serial.print("\nApprox resistance after increment: ");
-  Serial.printf("%.f ohms\n", pot.getApproxResistance());
+  Serial.printf("%d ohms\n", pot.getApproxResistance());
   Serial.printf("Wiper position: %d", pot.getPosition());
   Serial.println();
   

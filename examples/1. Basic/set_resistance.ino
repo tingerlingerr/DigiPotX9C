@@ -19,7 +19,7 @@
 // use output compatible pins in your MCU
 
 // X9C103 pot; // Using the default 10k resistance
-X9C103 pot(9190); // Using user measured resistance
+X9C103 pot(9190); // Using user measured resistance in Ω
 
 void setup() {
   Serial.begin(57600);
